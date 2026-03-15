@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bernardo Hille — Front-end Developer</title>
+    <meta name="description" content="Portfólio de Bernardo Hille — Desenvolvedor Front-end especializado em React, Next.js, performance e interfaces imersivas.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300;1,9..40,400&display=swap" rel="stylesheet">
+    <style>
+        :root{--bg:#0a0a0a;--surface:#111111;--surface-2:#1a1a1a;--border:#222222;--text:#e8e4df;--text-dim:#7a756e;--accent:#c9ff50;--accent-dim:#a3d13e;--warm:#ff6b35;--serif:'Instrument Serif',Georgia,serif;--sans:'DM Sans',-apple-system,sans-serif}
+        *{margin:0;padding:0;box-sizing:border-box}
+        html{scroll-behavior:smooth;scrollbar-width:thin;scrollbar-color:var(--accent) var(--bg)}
+        body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:16px;line-height:1.6;overflow-x:hidden}
+        ::selection{background:var(--accent);color:var(--bg)}
+        a{color:inherit;text-decoration:none}
+        body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:9999}
+
+        nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.25rem 2rem;display:flex;justify-content:space-between;align-items:center;backdrop-filter:blur(20px);background:rgba(10,10,10,0.7);border-bottom:1px solid var(--border);transition:transform 0.4s ease}
+        .nav-logo{font-family:var(--serif);font-size:1.5rem;letter-spacing:-0.02em}
+        .nav-logo span{color:var(--accent)}
+        .nav-links{display:flex;gap:2rem;list-style:none;font-size:.85rem;font-weight:500;letter-spacing:.05em;text-transform:uppercase}
+        .nav-links a{position:relative;color:var(--text-dim);transition:color .3s}
+        .nav-links a:hover{color:var(--accent)}
+        .nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:var(--accent);transition:width .3s}
+        .nav-links a:hover::after{width:100%}
+        .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
+        .hamburger span{width:24px;height:2px;background:var(--text);transition:all .3s}
+
+        .hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:8rem 2rem 4rem;position:relative}
+        .hero-grid{max-width:1400px;margin:0 auto;width:100%;display:grid;grid-template-columns:280px 1fr;gap:4rem;align-items:center}
+
+        .hero-profile{display:flex;flex-direction:column;align-items:center;text-align:center;opacity:0;animation:fadeUp .8s ease .2s forwards;background:var(--surface);border:1px solid var(--border);padding:2.5rem 1.5rem 2rem;position:relative}
+        .hero-profile::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--warm),var(--accent))}
+        .profile-photo-wrap{position:relative;width:140px;height:140px;margin-bottom:1.25rem}
+        .profile-photo-wrap::before{content:'';position:absolute;inset:-3px;border-radius:50%;background:conic-gradient(var(--accent),var(--warm),var(--accent));animation:spinBorder 6s linear infinite}
+        @keyframes spinBorder{to{transform:rotate(360deg)}}
+        .profile-photo{position:relative;width:100%;height:100%;border-radius:50%;overflow:hidden;border:3px solid var(--bg);background:var(--surface-2);display:flex;align-items:center;justify-content:center}
+        .profile-photo img{width:100%;height:100%;object-fit:cover;display:block}
+        .avatar-placeholder{width:100%;height:100%;background:linear-gradient(135deg,var(--surface-2),#252525);display:flex;align-items:center;justify-content:center}
+        .avatar-placeholder svg{width:60%;height:60%;opacity:.3}
+        .profile-name{font-family:var(--serif);font-size:1.5rem;line-height:1.2;letter-spacing:-.01em;margin-bottom:.15rem}
+        .profile-role{font-size:.8rem;color:var(--accent);font-weight:500;margin-bottom:.6rem;letter-spacing:.03em}
+        .profile-location{font-size:.78rem;color:var(--text-dim);display:flex;align-items:center;gap:.35rem;margin-bottom:1rem}
+        .profile-location svg{width:13px;height:13px;flex-shrink:0}
+        .profile-bio{font-size:.82rem;color:var(--text-dim);line-height:1.6;margin-bottom:1.2rem;padding:0 .25rem}
+        .profile-divider{width:100%;height:1px;background:var(--border);margin-bottom:1rem}
+        .profile-quick-stats{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;width:100%;margin-bottom:1.2rem}
+        .pq-stat{text-align:center;padding:.5rem 0}
+        .pq-stat-val{font-family:var(--serif);font-size:1.3rem;color:var(--accent);line-height:1}
+        .pq-stat-label{font-size:.65rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:.06em;margin-top:.15rem}
+        .profile-socials{display:flex;gap:.5rem}
+        .social-icon{width:36px;height:36px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;transition:all .3s}
+        .social-icon:hover{border-color:var(--accent);background:rgba(201,255,80,.08);transform:translateY(-2px)}
+        .social-icon svg{width:15px;height:15px;color:var(--text-dim);transition:color .3s}
+        .social-icon:hover svg{color:var(--accent)}
+
+        .hero-content{opacity:0;animation:fadeUp .8s ease .4s forwards}
+        .hero-eyebrow{font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:1.5rem;font-weight:500}
+        .hero-title{font-family:var(--serif);font-size:clamp(3rem,7vw,6.5rem);line-height:.95;letter-spacing:-.03em;margin-bottom:1.5rem}
+        .hero-title em{font-style:italic;color:var(--accent)}
+        .hero-subtitle{max-width:550px;font-size:1.1rem;color:var(--text-dim);line-height:1.7;margin-bottom:2.5rem}
+        .hero-cta-row{display:flex;gap:1rem;align-items:center;flex-wrap:wrap}
+        .status-badge{display:inline-flex;align-items:center;gap:.5rem;padding:.4rem 1rem;border:1px solid rgba(201,255,80,.2);background:rgba(201,255,80,.05);font-size:.75rem;font-weight:500;color:var(--accent);margin-bottom:1.5rem;text-transform:uppercase;letter-spacing:.08em}
+        .status-dot{width:6px;height:6px;background:var(--accent);border-radius:50%;animation:blink 2s ease infinite}
+        @keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+
+        .hero-certs{display:flex;gap:1rem;margin-top:2.5rem;padding-top:2rem;border-top:1px solid var(--border);flex-wrap:wrap}
+        .hero-cert{display:flex;align-items:center;gap:.75rem;padding:.8rem 1.2rem;border:1px solid var(--border);background:var(--surface);transition:all .3s;flex:1;min-width:240px}
+        .hero-cert:hover{border-color:var(--accent);transform:translateY(-2px)}
+        .hero-cert-icon{width:36px;height:36px;border-radius:50%;background:rgba(255,107,53,.1);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+        .hero-cert-icon svg{width:18px;height:18px;color:var(--warm)}
+        .hero-cert-info{display:flex;flex-direction:column}
+        .hero-cert-name{font-size:.82rem;font-weight:600;line-height:1.3}
+        .hero-cert-meta{font-size:.7rem;color:var(--text-dim)}
+        .hero-scroll-hint{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.5rem;color:var(--text-dim);font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;animation:pulse 2s ease infinite}
+        .hero-scroll-hint .line{width:1px;height:40px;background:linear-gradient(to bottom,var(--text-dim),transparent)}
+
+        .btn-primary{display:inline-flex;align-items:center;gap:.5rem;padding:.9rem 2rem;background:var(--accent);color:var(--bg);font-weight:600;font-size:.9rem;letter-spacing:.03em;border:none;cursor:pointer;transition:all .3s;text-transform:uppercase}
+        .btn-primary:hover{background:#dbff80;transform:translateY(-2px);box-shadow:0 8px 30px rgba(201,255,80,.2)}
+        .btn-outline{display:inline-flex;align-items:center;gap:.5rem;padding:.9rem 2rem;border:1px solid var(--border);color:var(--text);font-weight:500;font-size:.9rem;letter-spacing:.03em;cursor:pointer;transition:all .3s;background:transparent;text-transform:uppercase}
+        .btn-outline:hover{border-color:var(--accent);color:var(--accent)}
+
+        .marquee-section{border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:1rem 0;overflow:hidden}
+        .marquee-track{display:flex;gap:3rem;animation:marquee 25s linear infinite;width:max-content}
+        .marquee-item{font-family:var(--serif);font-size:1.1rem;white-space:nowrap;color:var(--text-dim);display:flex;align-items:center;gap:3rem}
+        .marquee-item .dot{width:6px;height:6px;background:var(--accent);border-radius:50%;flex-shrink:0}
+        @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+        section{padding:6rem 2rem}
+        .section-inner{max-width:1400px;margin:0 auto}
+        .section-label{font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);font-weight:500;margin-bottom:.75rem}
+        .section-title{font-family:var(--serif);font-size:clamp(2.2rem,5vw,3.8rem);line-height:1.05;letter-spacing:-.02em;margin-bottom:1rem}
+        .section-title em{font-family:var(--serif);font-style:italic;color:var(--accent)}
+        .section-desc{color:var(--text-dim);font-size:1.05rem;max-width:550px;line-height:1.7;margin-bottom:3rem}
+
+        #sobre{background:var(--surface)}
+        .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start}
+        .about-stats{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:2rem}
+        .stat-card{background:var(--surface-2);border:1px solid var(--border);padding:1.5rem;transition:all .3s}
+        .stat-card:hover{border-color:var(--accent);transform:translateY(-3px)}
+        .stat-number{font-family:var(--serif);font-size:2.5rem;color:var(--accent);line-height:1;margin-bottom:.4rem}
+        .stat-label{font-size:.8rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:.05em}
+        .tech-stack{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1.5rem}
+        .tech-tag{padding:.4rem 1rem;border:1px solid var(--border);font-size:.8rem;font-weight:500;color:var(--text-dim);transition:all .3s}
+        .tech-tag:hover{border-color:var(--accent);color:var(--accent);background:rgba(201,255,80,.05)}
+
+        .timeline{position:relative;padding-left:3rem}
+        .timeline::before{content:'';position:absolute;left:0;top:0;bottom:0;width:1px;background:var(--border)}
+        .timeline-item{position:relative;padding-bottom:3rem;opacity:0;transform:translateY(30px);transition:all .6s ease}
+        .timeline-item.visible{opacity:1;transform:translateY(0)}
+        .timeline-item::before{content:'';position:absolute;left:-3rem;top:8px;width:9px;height:9px;background:var(--accent);border-radius:50%;transform:translateX(-4px)}
+        .timeline-date{font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:.4rem;font-weight:500}
+        .timeline-role{font-family:var(--serif);font-size:1.6rem;margin-bottom:.2rem}
+        .timeline-company{color:var(--text-dim);font-size:.95rem;margin-bottom:.8rem}
+        .timeline-desc{color:var(--text-dim);font-size:.9rem;line-height:1.7;max-width:600px}
+        .timeline-tags{display:flex;gap:.4rem;flex-wrap:wrap;margin-top:.8rem}
+        .timeline-tags span{font-size:.7rem;padding:.2rem .6rem;border:1px solid var(--border);color:var(--text-dim);text-transform:uppercase;letter-spacing:.04em}
+
+        #projetos{background:var(--surface)}
+        .projects-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(380px,1fr));gap:1.5rem}
+        .project-card{background:var(--bg);border:1px solid var(--border);overflow:hidden;transition:all .4s ease;display:flex;flex-direction:column}
+        .project-card:hover{border-color:var(--accent);transform:translateY(-5px);box-shadow:0 20px 60px rgba(0,0,0,.3)}
+        .project-thumbnail{height:220px;overflow:hidden;position:relative;background:var(--surface-2)}
+        .project-thumbnail .overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:2.5rem;font-style:italic;color:var(--text-dim);opacity:.15;letter-spacing:-.02em}
+        .project-thumbnail .gradient-bg{position:absolute;inset:0}
+        .project-body{padding:1.5rem;flex:1;display:flex;flex-direction:column}
+        .project-tags{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1rem}
+        .project-tags span{font-size:.7rem;padding:.25rem .6rem;border:1px solid var(--border);color:var(--text-dim);text-transform:uppercase;letter-spacing:.05em}
+        .project-name{font-family:var(--serif);font-size:1.5rem;margin-bottom:.5rem}
+        .project-desc{color:var(--text-dim);font-size:.9rem;line-height:1.6;flex:1;margin-bottom:1.2rem}
+        .project-link{display:inline-flex;align-items:center;gap:.5rem;font-size:.8rem;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);transition:gap .3s}
+        .project-link:hover{gap:1rem}
+        .project-link .arrow{transition:transform .3s}
+        .project-link:hover .arrow{transform:translateX(4px)}
+
+        .edu-cards{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+        .edu-card{background:var(--surface);border:1px solid var(--border);padding:2rem;transition:all .3s}
+        .edu-card:hover{border-color:var(--accent)}
+        .edu-institution{font-family:var(--serif);font-size:1.4rem;margin-bottom:.3rem}
+        .edu-course{color:var(--text-dim);font-size:.9rem;margin-bottom:.4rem}
+        .edu-date{font-size:.75rem;color:var(--accent);letter-spacing:.1em;text-transform:uppercase;font-weight:500}
+        .edu-detail{margin-top:.8rem;color:var(--text-dim);font-size:.85rem;line-height:1.6}
+
+        .research-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:2.5rem}
+        .research-card{background:var(--surface);border:1px solid var(--border);padding:1.5rem;transition:all .3s;position:relative;overflow:hidden}
+        .research-card:hover{border-color:var(--warm)}
+        .research-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--warm)}
+        .research-type{font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;color:var(--warm);font-weight:600;margin-bottom:.5rem}
+        .research-title{font-family:var(--serif);font-size:1.1rem;margin-bottom:.3rem;line-height:1.3}
+        .research-meta{font-size:.8rem;color:var(--text-dim);line-height:1.5}
+
+        #contato{text-align:center}
+        .contact-title{font-family:var(--serif);font-size:clamp(2.5rem,6vw,5rem);line-height:1;letter-spacing:-.03em;margin-bottom:1.5rem}
+        .contact-title em{font-style:italic;color:var(--accent)}
+        .contact-subtitle{color:var(--text-dim);font-size:1.1rem;max-width:500px;margin:0 auto 3rem;line-height:1.7}
+        .contact-links{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-bottom:2rem}
+        .contact-pill{display:inline-flex;align-items:center;gap:.6rem;padding:.75rem 1.5rem;border:1px solid var(--border);font-size:.9rem;transition:all .3s}
+        .contact-pill:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px)}
+        .contact-pill svg{width:16px;height:16px}
+
+        footer{border-top:1px solid var(--border);padding:2rem;text-align:center;font-size:.8rem;color:var(--text-dim)}
+
+        @keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+        @keyframes pulse{0%,100%{opacity:.4}50%{opacity:1}}
+        .reveal{opacity:0;transform:translateY(40px);transition:all .7s cubic-bezier(.22,1,.36,1)}
+        .reveal.visible{opacity:1;transform:translateY(0)}
+        .grad-1{background:linear-gradient(135deg,#1a1a2e,#16213e,#0f3460)}.grad-2{background:linear-gradient(135deg,#1a0a2e,#2d1b4e,#462066)}.grad-3{background:linear-gradient(135deg,#0a1a0a,#1b3a1b,#2d5a2d)}.grad-4{background:linear-gradient(135deg,#2a1a0a,#3d2b1a,#5a3d1a)}.grad-5{background:linear-gradient(135deg,#0a1a1a,#1b3a3d,#1a4a5a)}.grad-6{background:linear-gradient(135deg,#1a0a0a,#3d1b1b,#5a2020)}.grad-7{background:linear-gradient(135deg,#0a0a1a,#1b1b3d,#2d2d5a)}
+
+        @media(max-width:900px){
+            .nav-links{display:none}.hamburger{display:flex}
+            .nav-links.open{display:flex;flex-direction:column;position:absolute;top:100%;left:0;right:0;background:var(--bg);border-bottom:1px solid var(--border);padding:1.5rem 2rem;gap:1rem}
+            .hero-grid{grid-template-columns:1fr;gap:2.5rem;text-align:center}
+            .hero-profile{order:-1;max-width:340px;margin:0 auto}
+            .hero-content{display:flex;flex-direction:column;align-items:center}
+            .hero-subtitle{text-align:center}.hero-cta-row{justify-content:center}.hero-certs{justify-content:center}
+            .hero-cert{min-width:200px}.profile-photo-wrap{width:120px;height:120px}
+            .about-grid{grid-template-columns:1fr;gap:2rem}.projects-grid{grid-template-columns:1fr}
+            .edu-cards{grid-template-columns:1fr}.research-grid{grid-template-columns:1fr}
+            section{padding:4rem 1.25rem}.hero{padding:7rem 1.25rem 3rem}.hero-scroll-hint{display:none}
+        }
+        @media(max-width:480px){.about-stats{grid-template-columns:1fr}.hero-certs{flex-direction:column}}
+    </style>
+</head>
+<body>
+
+<nav>
+    <a href="#" class="nav-logo">bernardo<span>.</span></a>
+    <ul class="nav-links" id="navLinks">
+        <li><a href="#sobre">Sobre</a></li>
+        <li><a href="#experiencia">Experiência</a></li>
+        <li><a href="#projetos">Projetos</a></li>
+        <li><a href="#formacao">Formação</a></li>
+        <li><a href="#contato">Contato</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<section class="hero" id="hero">
+    <div class="hero-grid">
+        <div class="hero-profile">
+            <div class="profile-photo-wrap">
+                <div class="profile-photo">
+                    <!-- TROQUE: substitua por <img src="sua-foto.jpg" alt="Bernardo Hille"> -->
+                    <div class="avatar-placeholder">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                    </div>
+                </div>
+            </div>
+            <div class="profile-name">Bernardo Hille</div>
+            <div class="profile-role">Front-end Developer &amp; Game Designer</div>
+            <div class="profile-location">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                Curitiba, Paraná
+            </div>
+            <p class="profile-bio">Construo interfaces responsivas e de alta performance. Na AeonVR, desenvolvo experiências web e VR. Na UFPR, pesquiso Gaussian Splatting e fotogrametria 3D.</p>
+            <div class="profile-divider"></div>
+            <div class="profile-quick-stats">
+                <div class="pq-stat"><div class="pq-stat-val">3+</div><div class="pq-stat-label">Anos exp.</div></div>
+                <div class="pq-stat"><div class="pq-stat-val">6+</div><div class="pq-stat-label">Empresas</div></div>
+                <div class="pq-stat"><div class="pq-stat-val">UFPR</div><div class="pq-stat-label">Universidade</div></div>
+                <div class="pq-stat"><div class="pq-stat-val">EN</div><div class="pq-stat-label">Avançado</div></div>
+            </div>
+            <div class="profile-divider"></div>
+            <div class="profile-socials">
+                <a href="https://www.linkedin.com/in/bernardo-hille-b440221bb/" target="_blank" rel="noopener" class="social-icon" title="LinkedIn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+                <a href="mailto:hille.bernardo@gmail.com" class="social-icon" title="E-mail"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></a>
+                <a href="https://github.com/" target="_blank" rel="noopener" class="social-icon" title="GitHub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg></a>
+                <a href="tel:+5541991715252" class="social-icon" title="Telefone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.13.81.36 1.6.68 2.34a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.74-1.25a2 2 0 012.11-.45c.74.32 1.53.55 2.34.68A2 2 0 0122 16.92z"/></svg></a>
+            </div>
+        </div>
+
+        <div class="hero-content">
+            <div class="status-badge"><span class="status-dot"></span>Disponível para oportunidades</div>
+            <div class="hero-eyebrow">Desenvolvedor Front-end &amp; Pesquisador</div>
+            <h1 class="hero-title">Criando<br>interfaces<br><em>memoráveis</em></h1>
+            <p class="hero-subtitle">Desenvolvedor Front-end com foco em React e Next.js. Especializado em interfaces responsivas, acessíveis e de alta performance &mdash; da landing page à aplicação VR imersiva.</p>
+            <div class="hero-cta-row">
+                <a href="#projetos" class="btn-primary">Ver projetos &darr;</a>
+                <a href="#contato" class="btn-outline">Entrar em contato</a>
+            </div>
+            <div class="hero-certs">
+                <div class="hero-cert">
+                    <div class="hero-cert-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+                    <div class="hero-cert-info"><span class="hero-cert-name">Meta Front-End Developer</span><span class="hero-cert-meta">Professional Certificate — 2026</span></div>
+                </div>
+                <div class="hero-cert">
+                    <div class="hero-cert-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+                    <div class="hero-cert-info"><span class="hero-cert-name">Meta Back-End Developer</span><span class="hero-cert-meta">Professional Certificate — 2026</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="hero-scroll-hint"><span>Scroll</span><div class="line"></div></div>
+</section>
+
+<div class="marquee-section"><div class="marquee-track">
+    <span class="marquee-item">React <span class="dot"></span></span><span class="marquee-item">Next.js <span class="dot"></span></span><span class="marquee-item">TypeScript <span class="dot"></span></span><span class="marquee-item">JavaScript ES6+ <span class="dot"></span></span><span class="marquee-item">Tailwind CSS <span class="dot"></span></span><span class="marquee-item">Firebase <span class="dot"></span></span><span class="marquee-item">REST APIs <span class="dot"></span></span><span class="marquee-item">Unreal Engine 5 <span class="dot"></span></span><span class="marquee-item">Blender <span class="dot"></span></span><span class="marquee-item">SEO <span class="dot"></span></span><span class="marquee-item">Node.js <span class="dot"></span></span><span class="marquee-item">Gaussian Splatting <span class="dot"></span></span>
+    <span class="marquee-item">React <span class="dot"></span></span><span class="marquee-item">Next.js <span class="dot"></span></span><span class="marquee-item">TypeScript <span class="dot"></span></span><span class="marquee-item">JavaScript ES6+ <span class="dot"></span></span><span class="marquee-item">Tailwind CSS <span class="dot"></span></span><span class="marquee-item">Firebase <span class="dot"></span></span><span class="marquee-item">REST APIs <span class="dot"></span></span><span class="marquee-item">Unreal Engine 5 <span class="dot"></span></span><span class="marquee-item">Blender <span class="dot"></span></span><span class="marquee-item">SEO <span class="dot"></span></span><span class="marquee-item">Node.js <span class="dot"></span></span><span class="marquee-item">Gaussian Splatting <span class="dot"></span></span>
+</div></div>
+
+<section id="sobre">
+    <div class="section-inner">
+        <div class="about-grid">
+            <div class="about-left reveal">
+                <span class="section-label">01 / Sobre mim</span>
+                <h2 class="section-title">Design encontra<br>código limpo</h2>
+                <p class="section-desc">Desenvolvedor Front-end focado em interfaces que funcionam no mundo real. Experiência com landing pages, hotsites e aplicações web, integrando APIs REST com fluxos de autenticação e cadastro. Atualmente na AeonVR como Programador e Game Designer, criando experiências em realidade virtual e plataformas web. Paralelamente, pesquisador na UFPR com foco em Gaussian Splatting e digitalização 3D de museus.</p>
+                <div class="about-stats">
+                    <div class="stat-card"><div class="stat-number">3+</div><div class="stat-label">Anos de experiência</div></div>
+                    <div class="stat-card"><div class="stat-number">6+</div><div class="stat-label">Empresas atendidas</div></div>
+                    <div class="stat-card"><div class="stat-number">2</div><div class="stat-label">Iniciações Científicas</div></div>
+                    <div class="stat-card"><div class="stat-number">EN</div><div class="stat-label">Inglês avançado</div></div>
+                </div>
+            </div>
+            <div class="about-right reveal" style="transition-delay:.2s">
+                <span class="section-label">Stack</span>
+                <h3 style="font-family:var(--serif);font-size:1.4rem;margin-bottom:.3rem">Tecnologias &amp; Ferramentas</h3>
+                <p style="color:var(--text-dim);font-size:.9rem;margin-bottom:1rem">O que uso no dia a dia para transformar designs em código de produção.</p>
+                <div class="tech-stack">
+                    <span class="tech-tag">JavaScript (ES6+)</span><span class="tech-tag">TypeScript</span><span class="tech-tag">React</span><span class="tech-tag">Next.js</span><span class="tech-tag">Angular</span><span class="tech-tag">Vue</span><span class="tech-tag">HTML5</span><span class="tech-tag">CSS3</span><span class="tech-tag">Tailwind CSS</span><span class="tech-tag">Firebase</span><span class="tech-tag">REST APIs</span><span class="tech-tag">SQL / MySQL</span><span class="tech-tag">Node.js</span><span class="tech-tag">Prisma</span><span class="tech-tag">Git</span><span class="tech-tag">SEO</span><span class="tech-tag">Analytics</span><span class="tech-tag">Web Performance</span><span class="tech-tag">Unreal Engine 5</span><span class="tech-tag">Blender</span><span class="tech-tag">Cesium</span><span class="tech-tag">OpenXR / VR</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="experiencia">
+    <div class="section-inner">
+        <span class="section-label reveal">02 / Experiência</span>
+        <h2 class="section-title reveal">Onde já <em>contribuí</em></h2>
+        <p class="section-desc reveal">Trajetória focada em front-end, passando por agências, startups de VR e empresas de tecnologia.</p>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-date">Novembro 2024 — Presente</div>
+                <div class="timeline-role">Programador &amp; Game Designer</div>
+                <div class="timeline-company">Aeon VR — Curitiba, PR</div>
+                <div class="timeline-desc">Desenvolvimento de interfaces em Next.js + React com componentização e consistência visual. Integração com APIs REST para autenticação e consumo de dados. Criação de experiências VR imersivas com Unreal Engine 5, incluindo jogos e interfaces de fisioterapia (Movision). Firebase Realtime Database para gerenciamento de sessões.</div>
+                <div class="timeline-tags"><span>Next.js</span><span>React</span><span>UE5</span><span>Firebase</span><span>VR</span></div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-date">Dezembro 2023 — Novembro 2024</div>
+                <div class="timeline-role">Desenvolvedor Front-end</div>
+                <div class="timeline-company">Ninho Digital | Agência — Remoto</div>
+                <div class="timeline-desc">Criação de landing pages e hotsites para clientes como Sistema Positivo de Ensino, Kalunga e Mercado Livre. Integrações com APIs REST, configuração de analytics (eventos, tags, conversão), melhoria de SEO on-page e performance.</div>
+                <div class="timeline-tags"><span>HTML/CSS/JS</span><span>SEO</span><span>Analytics</span><span>REST APIs</span></div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-date">Junho 2023 — Dezembro 2023</div>
+                <div class="timeline-role">Suporte de TI | Documentação</div>
+                <div class="timeline-company">CIGAM Software de Gestão — Remoto</div>
+                <div class="timeline-desc">Produção de manuais e tutoriais (texto e vídeo) para o sistema ERP. Atendimento de tickets, reprodução de problemas e padronização de instruções e fluxos de uso.</div>
+                <div class="timeline-tags"><span>Documentação</span><span>ERP</span><span>Suporte</span></div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-date">Março 2022 — Maio 2023</div>
+                <div class="timeline-role">Desenvolvedor Front-end</div>
+                <div class="timeline-company">THS Distribuidora — Curitiba, PR</div>
+                <div class="timeline-desc">Manutenção e ajustes de front-end em páginas e sistemas internos. Melhorias de UI, responsividade e integração de formulários com validações no cliente.</div>
+                <div class="timeline-tags"><span>HTML/CSS/JS</span><span>UI</span><span>Responsividade</span></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="projetos">
+    <div class="section-inner">
+        <span class="section-label reveal">03 / Projetos</span>
+        <h2 class="section-title reveal">Trabalhos em <em>destaque</em></h2>
+        <p class="section-desc reveal">Projetos e clientes que marcaram minha trajetória profissional.</p>
+        <div class="projects-grid">
+            <div class="project-card reveal">
+                <div class="project-thumbnail"><div class="gradient-bg grad-3"></div><div class="overlay">Movision</div></div>
+                <div class="project-body">
+                    <div class="project-tags"><span>Game Dev</span><span>VR</span><span>Fisioterapia</span><span>Firebase</span></div>
+                    <h3 class="project-name">Movision — Jogo de Fisioterapia</h3>
+                    <p class="project-desc">Jogo interativo e interface para sessões de fisioterapia em realidade virtual. Integração com Firebase Realtime Database para gerenciamento de sessões, escalas e dados de pacientes.</p>
+                    <a href="https://movision-five.vercel.app" target="_blank" rel="noopener" class="project-link">Ver projeto ao vivo <span class="arrow">&rarr;</span></a>
+                </div>
+            </div>
+            <div class="project-card reveal">
+                <div class="project-thumbnail"><div class="gradient-bg grad-2"></div><div class="overlay">AeonVR</div></div>
+                <div class="project-body">
+                    <div class="project-tags"><span>Next.js</span><span>React</span><span>APIs REST</span><span>VR</span></div>
+                    <h3 class="project-name">Aeon VR — Plataforma Web</h3>
+                    <p class="project-desc">Interfaces para startup de realidade virtual. Componentização, autenticação, showrooms virtuais imersivos e treinamentos industriais. Top 10 Startups Paraná — Sebrae 2023.</p>
+                    <a href="https://www.aeonvr.com.br/" target="_blank" rel="noopener" class="project-link">Visitar site <span class="arrow">&rarr;</span></a>
+                </div>
+            </div>
+            <div class="project-card reveal">
+                <div class="project-thumbnail"><div class="gradient-bg grad-4"></div><div class="overlay">Positivo</div></div>
+                <div class="project-body">
+                    <div class="project-tags"><span>Landing Page</span><span>Hotsite</span><span>SEO</span><span>Analytics</span></div>
+                    <h3 class="project-name">Sistema Positivo de Ensino</h3>
+                    <p class="project-desc">Landing pages e hotsites para o maior sistema de ensino do Brasil (+1.900 escolas). Performance, SEO on-page e instrumentação de analytics para campanhas educacionais.</p>
+                    <a href="https://www.sistemapositivo.com.br/" target="_blank" rel="noopener" class="project-link">Visitar site <span class="arrow">&rarr;</span></a>
+                </div>
+            </div>
+            <div class="project-card reveal">
+                <div class="project-thumbnail"><div class="gradient-bg grad-1"></div><div class="overlay">Kalunga</div></div>
+                <div class="project-body">
+                    <div class="project-tags"><span>Hotsite</span><span>HTML/CSS/JS</span><span>Performance</span></div>
+                    <h3 class="project-name">Kalunga</h3>
+                    <p class="project-desc">Hotsites e landing pages para a maior rede de papelaria e informática do Brasil (+220 lojas). Responsividade, cross-browser e otimização de conversão.</p>
+                    <a href="https://www.kalunga.com.br/" target="_blank" rel="noopener" class="project-link">Visitar site <span class="arrow">&rarr;</span></a>
+                </div>
+            </div>
+            <div class="project-card reveal">
+                <div class="project-thumbnail"><div class="gradient-bg grad-5"></div><div class="overlay">MeLi</div></div>
+                <div class="project-body">
+                    <div class="project-tags"><span>Landing Page</span><span>E-commerce</span><span>Conversão</span></div>
+                    <h3 class="project-name">Mercado Livre</h3>
+                    <p class="project-desc">Landing pages e hotsites para o maior marketplace da América Latina. Foco em conversão, velocidade de carregamento e experiência do usuário.</p>
+                    <a href="https://www.mercadolivre.com.br/" target="_blank" rel="noopener" class="project-link">Visitar site <span class="arrow">&rarr;</span></a>
+                </div>
+            </div>
+            <div class="project-card reveal">
+                <div class="project-thumbnail"><div class="gradient-bg grad-6"></div><div class="overlay">Ninho</div></div>
+                <div class="project-body">
+                    <div class="project-tags"><span>Agência</span><span>Multi-client</span><span>SEO</span></div>
+                    <h3 class="project-name">Ninho Digital</h3>
+                    <p class="project-desc">Dev front-end na agência de marketing digital de Curitiba, entregando projetos para clientes como Cymco e Depimel com foco em performance e analytics.</p>
+                    <a href="https://ninho.digital/" target="_blank" rel="noopener" class="project-link">Visitar agência <span class="arrow">&rarr;</span></a>
+                </div>
+            </div>
+            <div class="project-card reveal">
+                <div class="project-thumbnail"><div class="gradient-bg grad-7"></div><div class="overlay">CIGAM</div></div>
+                <div class="project-body">
+                    <div class="project-tags"><span>Documentação</span><span>Suporte TI</span><span>ERP</span></div>
+                    <h3 class="project-name">CIGAM Software de Gestão</h3>
+                    <p class="project-desc">Documentação técnica, manuais e tutoriais para um dos 5 maiores ERPs do Brasil (+2.500 clientes, premiado GPTW). Padronização de fluxos de atendimento.</p>
+                    <a href="https://www.cigam.com.br/" target="_blank" rel="noopener" class="project-link">Visitar site <span class="arrow">&rarr;</span></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="formacao">
+    <div class="section-inner">
+        <span class="section-label reveal">04 / Formação &amp; Pesquisa</span>
+        <h2 class="section-title reveal">Educação &amp; <em>pesquisa</em></h2>
+        <p class="section-desc reveal">Base acadêmica em computação gráfica, com duas iniciações científicas e formação técnica premiada.</p>
+        <div class="edu-cards">
+            <div class="edu-card reveal">
+                <div class="edu-institution">UFPR</div>
+                <div class="edu-course">Bacharelado em Expressão Gráfica — Computação Gráfica e Mídia Digital</div>
+                <div class="edu-date">Fev 2023 — Presente</div>
+                <div class="edu-detail">Laboratório de Metaverso (UFPR) — Programador e Pesquisador. Equipe Yapira (UFPR) — Robótica de combate. Foco paralelo em desenvolvimento front-end (React/Next.js, TypeScript).</div>
+            </div>
+            <div class="edu-card reveal" style="transition-delay:.15s">
+                <div class="edu-institution">PUCPR</div>
+                <div class="edu-course">Técnico em Informática</div>
+                <div class="edu-date">Fev 2018 — Nov 2020</div>
+                <div class="edu-detail">Equipe de Robótica (TecPuc/PUCPR) — Robótica de combate. TCC premiado como Melhor Projeto: Smart Vending Machine — mercado autônomo com JavaScript e SQL.</div>
+            </div>
+        </div>
+        <div class="research-grid">
+            <div class="research-card reveal">
+                <div class="research-type">TCC — Em andamento</div>
+                <div class="research-title">Digitalização 3D de Exposições em Museus com Fotogrametria e Gaussian Splatting</div>
+                <div class="research-meta">Estudo de caso no Museu de Ciências Biológicas da UFPR. Técnicas de captura 3D para preservação digital de acervos.</div>
+            </div>
+            <div class="research-card reveal" style="transition-delay:.1s">
+                <div class="research-type">Iniciação Científica</div>
+                <div class="research-title">Gaussian Splatting para Laboratórios Industriais</div>
+                <div class="research-meta">Digitalização de laboratórios industriais com Gaussian Splatting. Estudo de caso no laboratório mecânico da Renault.</div>
+            </div>
+            <div class="research-card reveal" style="transition-delay:.2s">
+                <div class="research-type">Iniciação Científica — Concluída</div>
+                <div class="research-title">Realidade Virtual para Parques Tecnológicos Industriais</div>
+                <div class="research-meta">Pesquisa com Prof. Márcio Catapan sobre VR em ambientes industriais. Resultou em parceria com SENAI-PR e projeto AeonVR.</div>
+            </div>
+            <div class="research-card reveal" style="transition-delay:.3s">
+                <div class="research-type">Projeto Acadêmico</div>
+                <div class="research-title">Fibracem — Simulação VR de Injeção de Moldes</div>
+                <div class="research-meta">Treinamento em realidade virtual para operação de injetoras industriais com Unreal Engine 5 e Blender.</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="contato">
+    <div class="section-inner"><div class="reveal">
+        <span class="section-label">05 / Contato</span>
+        <h2 class="contact-title">Vamos criar<br>algo <em>incrível</em>?</h2>
+        <p class="contact-subtitle">Estou aberto a novas oportunidades, freelance e colaborações. Vamos conversar sobre seu próximo projeto.</p>
+        <div class="contact-links">
+            <a href="mailto:hille.bernardo@gmail.com" class="contact-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>hille.bernardo@gmail.com</a>
+            <a href="tel:+5541991715252" class="contact-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.13.81.36 1.6.68 2.34a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.74-1.25a2 2 0 012.11-.45c.74.32 1.53.55 2.34.68A2 2 0 0122 16.92z"/></svg>(41) 99171-5252</a>
+            <a href="https://www.linkedin.com/in/bernardo-hille-b440221bb/" target="_blank" rel="noopener" class="contact-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>LinkedIn</a>
+        </div>
+    </div></div>
+</section>
+
+<footer><p>&copy; 2026 Bernardo Hille. Feito com código e café em Curitiba.</p></footer>
+
+<script>
+    const hamburger=document.getElementById('hamburger'),navLinks=document.getElementById('navLinks');
+    hamburger.addEventListener('click',()=>navLinks.classList.toggle('open'));
+    navLinks.querySelectorAll('a').forEach(l=>l.addEventListener('click',()=>navLinks.classList.remove('open')));
+    const observer=new IntersectionObserver(e=>{e.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})},{threshold:.1,rootMargin:'0px 0px -50px 0px'});
+    document.querySelectorAll('.reveal,.timeline-item').forEach(el=>observer.observe(el));
+    let lastY=window.scrollY;const nav=document.querySelector('nav');
+    window.addEventListener('scroll',()=>{const y=window.scrollY;nav.style.transform=y>lastY&&y>100?'translateY(-100%)':'translateY(0)';lastY=y},{passive:true});
+</script>
+</body>
+</html>
