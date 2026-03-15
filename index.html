@@ -125,6 +125,8 @@
         .project-thumbnail{height:220px;overflow:hidden;position:relative;background:var(--surface-2)}
         .project-thumbnail .overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:2.5rem;font-style:italic;color:var(--text-dim);opacity:.15;letter-spacing:-.02em}
         .project-thumbnail .gradient-bg{position:absolute;inset:0}
+        .project-thumbnail img{width:100%;height:100%;object-fit:cover;object-position:top;display:block;transition:transform .5s ease}
+        .project-card:hover .project-thumbnail img{transform:scale(1.05)}
         .project-body{padding:1.5rem;flex:1;display:flex;flex-direction:column}
         .project-tags{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1rem}
         .project-tags span{font-size:.7rem;padding:.25rem .6rem;border:1px solid var(--border);color:var(--text-dim);text-transform:uppercase;letter-spacing:.05em}
@@ -202,10 +204,7 @@
         <div class="hero-profile">
             <div class="profile-photo-wrap">
                 <div class="profile-photo">
-                    <!-- TROQUE: substitua por <img src="sua-foto.jpg" alt="Bernardo Hille"> -->
-                    <div class="avatar-placeholder">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                    </div>
+                    <img src="images/perfil.png" alt="Bernardo Hille">
                 </div>
             </div>
             <div class="profile-name">Bernardo Hille</div>
@@ -331,7 +330,7 @@
         <p class="section-desc reveal">Projetos e clientes que marcaram minha trajetória profissional.</p>
         <div class="projects-grid">
             <div class="project-card reveal">
-                <div class="project-thumbnail"><div class="gradient-bg grad-3"></div><div class="overlay">Movision</div></div>
+                <div class="project-thumbnail"><img src="images/movision.png" alt="Movision — Jogo de Fisioterapia VR"><div class="overlay">Movision</div></div>
                 <div class="project-body">
                     <div class="project-tags"><span>Game Dev</span><span>VR</span><span>Fisioterapia</span><span>Firebase</span></div>
                     <h3 class="project-name">Movision — Jogo de Fisioterapia</h3>
@@ -340,7 +339,7 @@
                 </div>
             </div>
             <div class="project-card reveal">
-                <div class="project-thumbnail"><div class="gradient-bg grad-2"></div><div class="overlay">AeonVR</div></div>
+                <div class="project-thumbnail"><img src="images/aeonvr.png" alt="Aeon VR — Plataforma Web"><div class="overlay">AeonVR</div></div>
                 <div class="project-body">
                     <div class="project-tags"><span>Next.js</span><span>React</span><span>APIs REST</span><span>VR</span></div>
                     <h3 class="project-name">Aeon VR — Plataforma Web</h3>
@@ -349,7 +348,7 @@
                 </div>
             </div>
             <div class="project-card reveal">
-                <div class="project-thumbnail"><div class="gradient-bg grad-4"></div><div class="overlay">Positivo</div></div>
+                <div class="project-thumbnail"><img src="images/positivo.png" alt="Sistema Positivo de Ensino"><div class="overlay">Positivo</div></div>
                 <div class="project-body">
                     <div class="project-tags"><span>Landing Page</span><span>Hotsite</span><span>SEO</span><span>Analytics</span></div>
                     <h3 class="project-name">Sistema Positivo de Ensino</h3>
@@ -358,7 +357,7 @@
                 </div>
             </div>
             <div class="project-card reveal">
-                <div class="project-thumbnail"><div class="gradient-bg grad-1"></div><div class="overlay">Kalunga</div></div>
+                <div class="project-thumbnail"><img src="images/kalunga.png" alt="Kalunga"><div class="overlay">Kalunga</div></div>
                 <div class="project-body">
                     <div class="project-tags"><span>Hotsite</span><span>HTML/CSS/JS</span><span>Performance</span></div>
                     <h3 class="project-name">Kalunga</h3>
@@ -367,7 +366,7 @@
                 </div>
             </div>
             <div class="project-card reveal">
-                <div class="project-thumbnail"><div class="gradient-bg grad-5"></div><div class="overlay">MeLi</div></div>
+                <div class="project-thumbnail"><img src="images/mercadolivre.png" alt="Mercado Livre"><div class="overlay">MeLi</div></div>
                 <div class="project-body">
                     <div class="project-tags"><span>Landing Page</span><span>E-commerce</span><span>Conversão</span></div>
                     <h3 class="project-name">Mercado Livre</h3>
@@ -376,7 +375,7 @@
                 </div>
             </div>
             <div class="project-card reveal">
-                <div class="project-thumbnail"><div class="gradient-bg grad-6"></div><div class="overlay">Ninho</div></div>
+                <div class="project-thumbnail"><img src="images/ninho.png" alt="Ninho Digital"><div class="overlay">Ninho</div></div>
                 <div class="project-body">
                     <div class="project-tags"><span>Agência</span><span>Multi-client</span><span>SEO</span></div>
                     <h3 class="project-name">Ninho Digital</h3>
@@ -385,7 +384,7 @@
                 </div>
             </div>
             <div class="project-card reveal">
-                <div class="project-thumbnail"><div class="gradient-bg grad-7"></div><div class="overlay">CIGAM</div></div>
+                <div class="project-thumbnail"><img src="images/cigam.png" alt="CIGAM Software de Gestão"><div class="overlay">CIGAM</div></div>
                 <div class="project-body">
                     <div class="project-tags"><span>Documentação</span><span>Suporte TI</span><span>ERP</span></div>
                     <h3 class="project-name">CIGAM Software de Gestão</h3>
