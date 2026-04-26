@@ -4234,6 +4234,85 @@ section,
 /*--------------------------------------------------------------
 # Bernardo Hille Custom Static Overrides
 --------------------------------------------------------------*/
+.side-nav {
+  position: fixed;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 997;
+  display: none;
+}
+
+.side-nav ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.side-nav a {
+  width: 54px;
+  height: 54px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--contrast-color), transparent 8%);
+  color: var(--accent-color);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 18px;
+  font-size: 18px;
+  line-height: 1;
+  white-space: nowrap;
+  box-shadow: 0 14px 30px color-mix(in srgb, var(--default-color), transparent 88%);
+  transition: width 0.25s ease, background-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.side-nav a i {
+  flex: 0 0 auto;
+}
+
+.side-nav a span {
+  color: var(--contrast-color);
+  font-size: 15px;
+  font-weight: 600;
+  opacity: 0;
+  transform: translateX(-8px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.side-nav a:hover,
+.side-nav a.active {
+  background: var(--accent-color);
+  color: var(--contrast-color);
+  box-shadow: 0 18px 36px color-mix(in srgb, var(--accent-color), transparent 68%);
+}
+
+.side-nav a:hover {
+  width: 162px;
+}
+
+.side-nav a:hover span {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+@media (min-width: 1200px) {
+  .index-page .header {
+    display: none !important;
+  }
+
+  .index-page .side-nav {
+    display: block;
+  }
+
+  .index-page .hero {
+    padding-top: 0;
+  }
+}
+
 .hero img {
   object-position: center 24%;
   filter: brightness(0.42);
@@ -4273,6 +4352,138 @@ section,
 .about .profile-card .profile-stats .stat-item p {
   text-transform: none;
   letter-spacing: 0;
+}
+
+.about .tools-showcase {
+  background: transparent;
+  padding: 0;
+  margin-top: 56px;
+}
+
+.about .tools-showcase .tools-showcase-header {
+  max-width: 980px;
+  margin-bottom: 54px;
+}
+
+.about .tools-showcase .tools-showcase-header span {
+  display: inline-block;
+  color: var(--accent-color);
+  font-size: 0.875rem;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 22px;
+  position: relative;
+}
+
+.about .tools-showcase .tools-showcase-header span::after {
+  content: "";
+  position: absolute;
+  bottom: -9px;
+  left: 0;
+  width: 40px;
+  height: 2px;
+  background: var(--accent-color);
+}
+
+.about .tools-showcase h3 {
+  color: var(--contrast-color);
+  font-size: clamp(2.4rem, 5vw, 4.35rem);
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: 0;
+  margin-bottom: 26px;
+}
+
+.about .tools-showcase .tools-showcase-header p {
+  color: color-mix(in srgb, var(--contrast-color), transparent 18%);
+  font-size: clamp(1.05rem, 2vw, 1.45rem);
+  line-height: 1.75;
+  margin: 0;
+}
+
+.about .tools-showcase .tools-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 28px 34px;
+}
+
+.about .tools-showcase .tool-item {
+  display: grid;
+  grid-template-columns: 76px minmax(0, 1fr);
+  align-items: center;
+  gap: 24px;
+  min-width: 0;
+  min-height: 144px;
+  background: color-mix(in srgb, var(--contrast-color), transparent 94%);
+  border: 1px solid color-mix(in srgb, var(--contrast-color), transparent 86%);
+  border-radius: 22px;
+  padding: 28px 34px;
+}
+
+.about .tools-showcase .tool-logo {
+  width: 70px;
+  height: 70px;
+  border-radius: 18px;
+  background: color-mix(in srgb, var(--accent-color), transparent 88%);
+  color: var(--accent-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--heading-font);
+  font-size: 32px;
+  font-weight: 900;
+  letter-spacing: 0;
+}
+
+.about .tools-showcase .tool-logo i {
+  line-height: 1;
+}
+
+.about .tools-showcase .tool-item h4 {
+  color: var(--contrast-color);
+  font-size: clamp(1.35rem, 2.4vw, 1.7rem);
+  font-weight: 800;
+  margin: 0 0 10px;
+  letter-spacing: 0;
+}
+
+.about .tools-showcase .tool-item p {
+  color: color-mix(in srgb, var(--contrast-color), transparent 32%);
+  font-size: 1.05rem;
+  font-weight: 400;
+  margin: 0;
+  line-height: 1.5;
+}
+
+@media (max-width: 767px) {
+  .about .tools-showcase .tools-showcase-header {
+    margin-bottom: 36px;
+  }
+
+  .about .tools-showcase .tools-grid {
+    grid-template-columns: 1fr;
+    gap: 26px;
+  }
+
+  .about .tools-showcase .tool-item {
+    grid-template-columns: 58px minmax(0, 1fr);
+    gap: 16px;
+    min-height: 0;
+    padding: 22px 20px;
+    border-radius: 18px;
+  }
+
+  .about .tools-showcase .tool-logo {
+    width: 58px;
+    height: 58px;
+    border-radius: 15px;
+    font-size: 24px;
+  }
+
+  .about .tools-showcase .tool-item p {
+    font-size: 0.98rem;
+  }
 }
 
 .portfolio .portfolio-card .portfolio-meta .project-tags {
