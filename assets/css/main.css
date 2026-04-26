@@ -843,6 +843,62 @@ section,
   transform: translateY(-3px);
 }
 
+.hero .hero-scroll-cue {
+  position: absolute;
+  left: 50%;
+  bottom: 62px;
+  z-index: 4;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  color: var(--accent-color);
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transform: translateX(-50%);
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.hero .hero-scroll-cue i {
+  width: 58px;
+  height: 58px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--accent-color);
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--accent-color), transparent 84%);
+  color: var(--accent-color);
+  font-size: 1.65rem;
+  animation: hero-scroll-bounce 1.8s ease-in-out infinite;
+  box-shadow: 0 14px 34px color-mix(in srgb, var(--accent-color), transparent 72%);
+}
+
+.hero .hero-scroll-cue:hover {
+  color: var(--accent-color);
+  transform: translate(-50%, -4px);
+}
+
+.hero .hero-scroll-cue:hover i {
+  border-color: var(--accent-color);
+  background: var(--accent-color);
+  color: var(--contrast-color);
+}
+
+@keyframes hero-scroll-bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(8px);
+  }
+}
+
 @media (max-width: 768px) {
   .hero h2 {
     font-size: 32px;
@@ -850,6 +906,17 @@ section,
 
   .hero p {
     font-size: 20px;
+  }
+
+  .hero .hero-scroll-cue {
+    bottom: 38px;
+    font-size: 0.78rem;
+  }
+
+  .hero .hero-scroll-cue i {
+    width: 48px;
+    height: 48px;
+    font-size: 1.35rem;
   }
 }
 
@@ -4377,7 +4444,10 @@ section,
 }
 
 .about .tools-showcase .tools-showcase-header {
-  max-width: 980px;
+  max-width: 900px;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
   margin-bottom: 54px;
 }
 
@@ -4396,26 +4466,29 @@ section,
   content: "";
   position: absolute;
   bottom: -9px;
-  left: 0;
+  left: 50%;
   width: 40px;
   height: 2px;
   background: var(--accent-color);
+  transform: translateX(-50%);
 }
 
 .about .tools-showcase h3 {
   color: var(--contrast-color);
-  font-size: clamp(2.4rem, 5vw, 4.35rem);
+  font-size: clamp(2.25rem, 4vw, 3.5rem);
   font-weight: 700;
-  line-height: 1.12;
+  line-height: 1.2;
   letter-spacing: 0;
-  margin-bottom: 26px;
+  margin: 0 auto 22px;
+  max-width: 860px;
 }
 
 .about .tools-showcase .tools-showcase-header p {
   color: color-mix(in srgb, var(--contrast-color), transparent 18%);
-  font-size: clamp(1.05rem, 2vw, 1.45rem);
+  font-size: 1.125rem;
   line-height: 1.75;
-  margin: 0;
+  margin: 0 auto;
+  max-width: 900px;
 }
 
 .about .tools-showcase .tools-grid {
