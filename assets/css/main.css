@@ -1991,6 +1991,31 @@ section,
   margin-bottom: 30px;
 }
 
+.portfolio .portfolio-card .portfolio-heading {
+  margin-bottom: 14px;
+}
+
+.portfolio .portfolio-card .portfolio-heading .project-category {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--accent-color);
+  background-color: color-mix(in srgb, var(--accent-color), transparent 88%);
+  padding: 5px 12px;
+  border-radius: 999px;
+  margin-bottom: 10px;
+  letter-spacing: 0.5px;
+}
+
+.portfolio .portfolio-card .portfolio-heading h4 {
+  color: var(--heading-color);
+  font-size: 24px;
+  font-weight: 800;
+  margin: 0;
+  line-height: 1.15;
+}
+
 .portfolio .portfolio-card .portfolio-image-container {
   position: relative;
   overflow: hidden;
@@ -2011,44 +2036,21 @@ section,
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.8) 100%);
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 25px;
-}
-
-.portfolio .portfolio-card .portfolio-image-container .portfolio-overlay .portfolio-info {
-  align-self: flex-start;
-}
-
-.portfolio .portfolio-card .portfolio-image-container .portfolio-overlay .portfolio-info .project-category {
-  display: inline-block;
-  font-size: 12px;
-  font-weight: 600;
-  text-transform: uppercase;
-  color: var(--accent-color);
-  background-color: rgba(255, 255, 255, 0.9);
-  padding: 4px 10px;
-  border-radius: 4px;
-  margin-bottom: 8px;
-  letter-spacing: 0.5px;
-}
-
-.portfolio .portfolio-card .portfolio-image-container .portfolio-overlay .portfolio-info h4 {
-  color: white;
-  font-size: 18px;
-  font-weight: 600;
-  margin: 0;
-  line-height: 1.3;
+  background: transparent;
+  opacity: 1;
+  pointer-events: none;
 }
 
 .portfolio .portfolio-card .portfolio-image-container .portfolio-overlay .portfolio-actions {
   display: flex;
   gap: 10px;
-  align-self: flex-end;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  opacity: 0;
+  transform: translateY(-8px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  pointer-events: auto;
 }
 
 .portfolio .portfolio-card .portfolio-image-container .portfolio-overlay .portfolio-actions a {
@@ -2106,6 +2108,12 @@ section,
 
 .portfolio .portfolio-card:hover .portfolio-image-container .portfolio-overlay {
   opacity: 1;
+}
+
+.portfolio .portfolio-card:hover .portfolio-image-container .portfolio-overlay .portfolio-actions,
+.portfolio .portfolio-card:focus-within .portfolio-image-container .portfolio-overlay .portfolio-actions {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .portfolio .portfolio-bottom {
@@ -4352,6 +4360,14 @@ section,
 .about .profile-card .profile-stats .stat-item p {
   text-transform: none;
   letter-spacing: 0;
+}
+
+.about .section-title {
+  padding-bottom: 48px;
+}
+
+.about .section-title .subtitle {
+  margin-bottom: 0;
 }
 
 .about .tools-showcase {
