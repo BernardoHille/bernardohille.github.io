@@ -1,16 +1,7 @@
-/**
-* Template Name: Craftivo
-* Template URL: https://bootstrapmade.com/craftivo-bootstrap-portfolio-template/
-* Updated: Oct 04 2025 with Bootstrap v5.3.8
-* Author: BootstrapMade.com
-* License: https://bootstrapmade.com/license/
-*/
-
-@charset "UTF-8";
+﻿@charset "UTF-8";
 
 /*--------------------------------------------------------------
 # Font & Color Variables
-# Help: https://bootstrapmade.com/color-system/
 --------------------------------------------------------------*/
 /* Fonts */
 :root {
@@ -4245,7 +4236,38 @@ section,
 --------------------------------------------------------------*/
 .hero img {
   object-position: center 24%;
-  filter: brightness(0.28);
+  filter: brightness(0.42);
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+.hero .hero-bg-mobile {
+  display: none;
+}
+
+.hero .hero-bg-desktop {
+  display: block;
+}
+
+.hero .container {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+.hero [data-aos] {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+@media (max-width: 767px) {
+  .hero .hero-bg-desktop {
+    display: none;
+  }
+
+  .hero .hero-bg-mobile {
+    display: block;
+    object-position: center center;
+  }
 }
 
 .about .profile-card .profile-stats .stat-item p {
