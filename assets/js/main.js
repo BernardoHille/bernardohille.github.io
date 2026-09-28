@@ -194,7 +194,7 @@
       'Pesquisa & Indústria': 'Research & Industry',
       'Campanha Digital': 'Digital Campaign',
       'Conversão': 'Conversion',
-      'Agência & Multi-cliente': 'Agency & Multi-client',
+      'Agência & Multicliente': 'Agency & Multi-client',
       'Agência': 'Agency',
       'Documentação & ERP': 'Documentation & ERP',
       'E-commerce & UI responsiva': 'E-commerce & Responsive UI',
@@ -214,6 +214,7 @@
       'Jornada profissional': 'Professional journey',
       'Projetos com foco em interfaces robustas, campanhas digitais, integrações com APIs, autenticação, dados, documentação técnica e pesquisa aplicada.': 'Projects focused on robust interfaces, digital campaigns, API integrations, authentication, data, technical documentation, and applied research.',
       'Atual': 'Current',
+      'Aeon VR - Curitiba, PR | Remoto': 'Aeon VR - Curitiba, PR | Remote',
       'Desenvolvedor Front-end': 'Front-end Developer',
       'Novembro 2024 - Presente': 'November 2024 - Present',
       'Interfaces em Next.js + React, autenticação, cadastro/login, consumo de APIs REST, fluxos conectados a dados em tempo real e manutenção de produto web. Atuação com componentização, reutilização, estados de loading/erro/empty, validações no cliente e otimizações de renderização e carregamento.': 'Building interfaces in Next.js + React, authentication, signup/login flows, REST API consumption, real-time data workflows, and web product maintenance. Work includes componentization, reuse, loading/error/empty states, client-side validation, and rendering/loading optimization.',
@@ -257,8 +258,8 @@
       'Curitiba, Paraná, Brasil': 'Curitiba, Paraná, Brazil',
       'Telefone': 'Phone',
       'Contato direto, sem formulário': 'Direct contact, no form',
-      'Por enquanto, prefiro centralizar tudo por email, LinkedIn, GitHub ou telefone. Se quiser conversar sobre front-end, campanhas, integrações, sistemas web ou pesquisa, é só me chamar.': 'For now, I prefer to centralize communication via email, LinkedIn, GitHub, or phone. If you want to talk about front-end, campaigns, integrations, web systems, or research, feel free to contact me.',
-      'Enviar email': 'Send email',
+      'Por enquanto, prefiro centralizar tudo por e-mail, LinkedIn, GitHub ou telefone. Se quiser conversar sobre front-end, campanhas, integrações, sistemas web ou pesquisa, é só me chamar.': 'For now, I prefer to centralize communication via e-mail, LinkedIn, GitHub, or phone. If you want to talk about front-end, campaigns, integrations, web systems, or research, feel free to contact me.',
+      'Enviar e-mail': 'Send e-mail',
       'Ligar': 'Call',
       'Portfólio pessoal com foco em front-end, interfaces responsivas, integrações, SEO, analytics e pesquisa aplicada.': 'Personal portfolio focused on front-end development, responsive interfaces, integrations, SEO, analytics, and applied research.',
       'Navegação': 'Navigation',
@@ -464,6 +465,7 @@
     });
 
     container.addEventListener('keydown', (event) => {
+      if (event.target !== container) return;
       if (event.key !== 'Enter' && event.key !== ' ') return;
       event.preventDefault();
       openProjectDetails();
@@ -478,14 +480,18 @@
     let filter = isotopeItem.getAttribute('data-default-filter') ?? '*';
     let sort = isotopeItem.getAttribute('data-sort') ?? 'original-order';
 
-    let initIsotope;
-    imagesLoaded(isotopeItem.querySelector('.isotope-container'), function() {
-      initIsotope = new Isotope(isotopeItem.querySelector('.isotope-container'), {
-        itemSelector: '.isotope-item',
-        layoutMode: layout,
-        filter: filter,
-        sortBy: sort
-      });
+    const isotopeContainer = isotopeItem.querySelector('.isotope-container');
+    const initIsotope = new Isotope(isotopeContainer, {
+      itemSelector: '.isotope-item',
+      layoutMode: layout,
+      filter: filter,
+      sortBy: sort
+    });
+    imagesLoaded(isotopeContainer).on('progress', function() {
+      initIsotope.layout();
+    });
+    document.querySelectorAll('.lang-btn').forEach(button => {
+      button.addEventListener('click', () => initIsotope.layout());
     });
 
     isotopeItem.querySelectorAll('.isotope-filters li').forEach(function(filters) {
@@ -527,12 +533,12 @@
    */
   window.addEventListener('load', function(e) {
     if (window.location.hash) {
-      if (document.querySelector(window.location.hash)) {
+      const section = document.getElementById(decodeURIComponent(window.location.hash.slice(1)));
+      if (section) {
         setTimeout(() => {
-          let section = document.querySelector(window.location.hash);
           let scrollMarginTop = getComputedStyle(section).scrollMarginTop;
           window.scrollTo({
-            top: section.offsetTop - parseInt(scrollMarginTop),
+            top: section.getBoundingClientRect().top + window.scrollY - (parseFloat(scrollMarginTop) || 0),
             behavior: 'smooth'
           });
         }, 100);
@@ -546,18 +552,20 @@
   let navmenulinks = document.querySelectorAll('.navmenu a, .side-nav a');
 
   function navmenuScrollspy() {
+    const position = window.scrollY + 200;
+    let activeHash = '';
     navmenulinks.forEach(navmenulink => {
       if (!navmenulink.hash) return;
-      let section = document.querySelector(navmenulink.hash);
+      let section = document.getElementById(decodeURIComponent(navmenulink.hash.slice(1)));
       if (!section) return;
-      let position = window.scrollY + 200;
-      if (position >= section.offsetTop && position <= (section.offsetTop + section.offsetHeight)) {
-        document.querySelectorAll('.navmenu a.active, .side-nav a.active').forEach(link => link.classList.remove('active'));
-        navmenulink.classList.add('active');
-      } else {
-        navmenulink.classList.remove('active');
+      const sectionTop = section.getBoundingClientRect().top + window.scrollY;
+      if (position >= sectionTop && position < sectionTop + section.offsetHeight) {
+        activeHash = navmenulink.hash;
       }
-    })
+    });
+    navmenulinks.forEach(link => {
+      link.classList.toggle('active', Boolean(activeHash) && link.hash === activeHash);
+    });
   }
   window.addEventListener('load', navmenuScrollspy);
   document.addEventListener('scroll', navmenuScrollspy);
