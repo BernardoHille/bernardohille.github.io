@@ -173,7 +173,7 @@
       'Projetos em destaque': 'Featured projects',
       'Anos de experiência': 'Years of experience',
       'Pesquisas científicas': 'Scientific studies',
-      'CV em breve': 'Resume coming soon',
+      'Baixar currículo': 'Download résumé',
       'Perfil': 'Profile',
       'Construindo interfaces digitais para web, dados e produto': 'Building digital interfaces for web, data, and products',
       'Construo interfaces responsivas e de alta performance. Na Aeon VR, desenvolvo produtos web com React, Next.js, autenticação, integrações com APIs REST e fluxos conectados a dados em tempo real.': 'I build responsive, high-performance interfaces. At Aeon VR, I develop web products with React, Next.js, authentication flows, REST API integrations, and real-time data experiences.',
